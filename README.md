@@ -29,7 +29,7 @@ A scalable and simple chat application with AI responses, authentication, and co
 
 #### 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/chat-saas.git
+git clone https://github.com/ECG11/SaaS-Web-App
 cd chat-saas
 ```
 
@@ -90,6 +90,68 @@ Set the following environment variables in your local environment:
 | `/chat`           | POST   | Send message to AI           |
 | `/history`        | GET    | Get user chat history        |
 | `/history/<date>` | DELETE | Delete conversation by date  |
+
+---
+
+## Architecture Decisions and Approach
+
+### **Frontend**
+1. **React.js**:
+   - React is used for building the user interface due to its component-based architecture, which allows for reusable and maintainable code.
+   - State management is handled using React's `useState` hook for simplicity.
+   - Navigation is implemented using `react-router-dom` to manage routes like `/register`, `/login`, `/dashboard`, and `/chatbox`.
+
+2. **Axios for API Requests**:
+   - Axios is used for making HTTP requests to the backend because it provides a clean API for handling requests and responses, including error handling.
+
+3. **Environment Variables**:
+   - The frontend uses a `.env` file to store the backend API URL (`REACT_APP_API_URL`), making it easy to switch between development and production environments.
+
+4. **Error Handling**:
+   - Error messages from the backend are displayed to the user for better feedback.
+   - Success messages are shown for actions like registration.
+
+---
+
+### **Backend**
+1. **Flask Framework**:
+   - Flask is used for its lightweight and flexible nature, making it easy to build RESTful APIs.
+
+2. **JWT Authentication**:
+   - JSON Web Tokens (JWT) are used for secure user authentication. Tokens are generated during login and stored in the frontend for subsequent API requests.
+
+3. **File-Based Storage**:
+   - User data is stored in `users.json`, and chat history is stored in `chat_history.json`. While this is sufficient for small-scale applications, it can be migrated to a database for scalability.
+
+4. **CORS Configuration**:
+   - Flask-CORS is used to allow cross-origin requests from the frontend running on a different port (e.g., `http://localhost:3000`).
+
+5. **Error Logging**:
+   - Errors are logged using Python's `logging` module to help with debugging and monitoring.
+
+6. **Endpoints**:
+   - `/register`: Handles user registration and saves user data to `users.json`.
+   - `/login`: Authenticates users and generates JWT tokens.
+   - `/history`: Retrieves chat history for the logged-in user.
+   - `/history/<date>`: Deletes chat history for a specific date.
+
+---
+
+### **General Approach**
+1. **Separation of Concerns**:
+   - The frontend and backend are decoupled, allowing independent development and testing.
+   - The frontend handles user interactions, while the backend manages data and business logic.
+
+2. **Scalability**:
+   - While the current implementation uses JSON files for storage, the architecture allows for easy migration to a database like PostgreSQL or MongoDB.
+
+3. **Security**:
+   - Sensitive data like the `SECRET_KEY` is stored in environment variables.
+   - JWT tokens are used for secure authentication.
+
+4. **User Experience**:
+   - The application provides clear feedback to users through success and error messages.
+   - Navigation is intuitive, with routes for registration, login, and dashboard access.
 
 ---
 
