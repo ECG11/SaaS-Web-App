@@ -21,7 +21,7 @@ const Register = () => {
       // Corrected key: 'access_token' instead of 'token'
       const token = response.data.access_token;
       
-      localStorage.setItem("jwt_token", token);
+      localStorage.setItem("token", token);
       setShowSuccessMessage(true);
 
       setTimeout(() => {
